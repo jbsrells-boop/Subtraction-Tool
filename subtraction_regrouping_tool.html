@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subtraction with Double Regrouping — Step by Step</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; background: #f0f4ff; min-height: 100vh; padding: 20px; display: flex; align-items: flex-start; justify-content: center; }
+  .container { max-width: 680px; width: 100%; background: #ffffff; border-radius: 16px; border: 2px solid #1a73e8; padding: 28px; margin: 0 auto; }
+  .tool-title { font-size: 22px; font-weight: bold; color: #ffffff; background: #1a73e8; text-align: center; padding: 16px 20px; border-radius: 10px; margin-bottom: 20px; line-height: 1.4; }
+  .immersive-note { background: #e8f0fe; border-left: 4px solid #1a73e8; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 15px; color: #1a73e8; font-style: italic; }
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-label { font-size: 14px; color: #555; margin-bottom: 6px; font-family: Arial, sans-serif; }
+  .progress-bar { height: 10px; background: #e8f0fe; border-radius: 5px; border: 1px solid #1a73e8; overflow: hidden; }
+  .progress-fill { height: 100%; background: #1a73e8; border-radius: 5px; transition: width 0.4s ease; }
+  .step-card { background: #e8f0fe; border-radius: 12px; border: 2px solid #1a73e8; padding: 20px; margin-bottom: 20px; }
+  .step-badge { display: inline-block; background: #1a73e8; color: #ffffff; font-size: 13px; font-weight: bold; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; font-family: Arial, sans-serif; }
+  .step-instruction { font-size: 20px; color: #0c1f5c; line-height: 1.7; margin-bottom: 16px; font-weight: bold; }
+  .hint-box { background: #f9a825; border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; }
+  .hint-label { font-size: 13px; font-weight: bold; color: #5c3a00; margin-bottom: 4px; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+  .hint-text { font-size: 18px; color: #3d2400; line-height: 1.6; }
+  .math-table-wrap { overflow-x: auto; margin: 16px 0; }
+  table.math-grid { width: 100%; border-collapse: separate; border-spacing: 6px; table-layout: fixed; }
+  table.math-grid th { font-size: 14px; font-weight: bold; color: #ffffff; background: #1a73e8; padding: 10px 6px; border-radius: 8px; text-align: center; font-family: Arial, sans-serif; }
+  th.rh { background: transparent; color: transparent; width: 110px; }
+  td.row-label { font-size: 13px; color: #555; font-weight: bold; padding: 6px 4px; text-align: right; white-space: nowrap; font-family: Arial, sans-serif; vertical-align: middle; }
+  td.num-cell { background: #ffffff; border: 2px solid #c5d8f8; border-radius: 10px; padding: 6px; text-align: center; min-width: 70px; height: 84px; vertical-align: middle; transition: background 0.3s, border-color 0.3s; }
+  .cell-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 0px; }
+  .new-val-top { font-size: 18px; color: #1a73e8; font-weight: bold; line-height: 1.2; font-family: Georgia, serif; }
+  .old-val-crossed { font-size: 26px; color: #e53935; text-decoration: line-through; font-weight: bold; line-height: 1.1; font-family: Georgia, serif; }
+  .only-new-val { font-size: 26px; color: #1a73e8; font-weight: bold; line-height: 1.1; font-family: Georgia, serif; }
+  .plain-val { font-size: 30px; font-weight: bold; color: #1a3a8f; line-height: 1.1; font-family: Georgia, serif; }
+  .arrow-note { font-size: 11px; color: #c17a00; font-weight: bold; font-family: Arial, sans-serif; line-height: 1.3; text-align: center; margin-top: 2px; }
+  td.gold { background: #fff3cd; border-color: #f9a825; }
+  td.blue { background: #dbeafe; border-color: #1a73e8; }
+  td.answer-blank .plain-val { color: #aaa; font-size: 22px; }
+  td.answer-filled { background: #d1fae5; border-color: #059669; }
+  td.answer-filled .plain-val { color: #065f46; }
+  .divider-row td { padding: 2px 0; height: 5px; }
+  .divider-line { height: 3px; background: #1a73e8; border-radius: 2px; }
+  .nav-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 28px; border-radius: 8px; border: 2px solid #1a73e8; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s, transform 0.1s; font-family: Arial, sans-serif; }
+  .btn:active { transform: scale(0.97); }
+  .btn-back { background: #ffffff; color: #1a73e8; }
+  .btn-back:hover { background: #e8f0fe; }
+  .btn-back:disabled { opacity: 0.35; cursor: default; }
+  .btn-next { background: #1a73e8; color: #ffffff; }
+  .btn-next:hover { background: #1558b0; }
+  .btn-next:disabled { opacity: 0.35; cursor: default; }
+  .step-counter-label { margin-left: auto; font-size: 14px; color: #555; font-family: Arial, sans-serif; }
+  .celebrate-box { background: #d1fae5; border: 2px solid #059669; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 20px; }
+  .celebrate-title { font-size: 22px; font-weight: bold; color: #065f46; margin-bottom: 8px; }
+  .celebrate-text { font-size: 20px; color: #065f46; line-height: 1.6; }
+  .restart-btn { margin-top: 14px; background: #1a73e8; color: #ffffff; border: none; padding: 10px 24px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; }
+  .restart-btn:hover { background: #1558b0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="tool-title">Let's Solve 532 minus 285!<br>Step-by-Step with Double Regrouping</div>
+  <div class="immersive-note">Click on Immersive Reader at the top of the page to have the steps read aloud to you.</div>
+  <div class="progress-wrap">
+    <div class="progress-label" id="progress-label">Step 1 of 7</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:14%;"></div></div>
+  </div>
+  <div class="step-card">
+    <div class="step-badge" id="step-badge">Step 1 of 7</div>
+    <div class="step-instruction" id="step-instruction"></div>
+    <div class="hint-box">
+      <div class="hint-label">Hint</div>
+      <div class="hint-text" id="hint-text"></div>
+    </div>
+    <div class="math-table-wrap">
+      <table class="math-grid">
+        <thead>
+          <tr><th class="rh"></th><th>Hundreds</th><th>Tens</th><th>Ones</th></tr>
+        </thead>
+        <tbody id="math-body"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="celebrate-box" id="celebrate-box" style="display:none;">
+    <div class="celebrate-title">Amazing work! You solved it!</div>
+    <div class="celebrate-text">532 minus 285 equals 247!</div>
+    <button class="restart-btn" onclick="restart()">Start over</button>
+  </div>
+  <div class="nav-row">
+    <button class="btn btn-back" id="btn-back" onclick="changeStep(-1)" disabled>Back</button>
+    <button class="btn btn-next" id="btn-next" onclick="changeStep(1)">Next step</button>
+    <span class="step-counter-label" id="step-counter">1 / 7</span>
+  </div>
+</div>
+<script>
+var step = 0;
+function c(val, cls, oldVal, newVal, arrow) {
+  return { val: val||"", cls: cls||"", oldVal: oldVal||null, newVal: newVal||null, arrow: arrow||null };
+}
+var steps = [
+  {
+    badge:"Step 1 of 7",
+    instruction:"Let's solve 532 minus 285! We always start by looking at the ones column first. Ask yourself: is the top number bigger than the bottom number?",
+    hint:"Look at the ones column. The top number is 2 and the bottom number is 5. Is 2 bigger than 5? No! So we need to regroup.",
+    h1:c("5"),        t1:c("3"),        o1:c("2","gold"),
+    h2:c("2"),        t2:c("8"),        o2:c("5","gold"),
+    ha:c("?","answer-blank"), ta:c("?","answer-blank"), oa:c("?","answer-blank")
+  },
+  {
+    badge:"Step 2 of 7",
+    instruction:"We need to borrow from the tens column! We cross out the 3 and write 2 above it. That 1 ten turns into 10 ones and goes to the ones column — so ones goes from 2 to 12!",
+    hint:"Cross out the 3 in the tens column and write 2 above it. The ones column gets 10 more — so 2 becomes 12.",
+    h1:c("5"),
+    t1:c("","blue","3","2","gave 1 ten"),
+    o1:c("","gold","2","12","now 12!"),
+    h2:c("2"),        t2:c("8"),        o2:c("5"),
+    ha:c("?","answer-blank"), ta:c("?","answer-blank"), oa:c("?","answer-blank")
+  },
+  {
+    badge:"Step 3 of 7",
+    instruction:"Now the ones column has 12! Subtract: 12 minus 5 equals 7. Write 7 in the ones answer space. The ones column is done!",
+    hint:"12 minus 5 equals 7. Write 7 in the answer row under the ones column.",
+    h1:c("5"),
+    t1:c("","blue","3","2",null),
+    o1:c("","","2","12",null),
+    h2:c("2"),        t2:c("8"),        o2:c("5"),
+    ha:c("?","answer-blank"), ta:c("?","answer-blank"), oa:c("7","answer-filled")
+  },
+  {
+    badge:"Step 4 of 7",
+    instruction:"The ones column is done! Now look at the tens column. The top number is now 2 and the bottom number is 8. Is 2 bigger than 8? No! We need to regroup again — this time from the hundreds column!",
+    hint:"The tens column top number is 2 and the bottom is 8. Since 2 is smaller than 8, we need to borrow from hundreds.",
+    h1:c("5"),
+    t1:c("","gold","3","2",null),
+    o1:c("","","2","12",null),
+    h2:c("2"),        t2:c("8","gold"), o2:c("5"),
+    ha:c("?","answer-blank"), ta:c("?","answer-blank"), oa:c("7","answer-filled")
+  },
+  {
+    badge:"Step 5 of 7",
+    instruction:"We borrow from the hundreds column! We cross out the 5 and write 4 above it. That 1 hundred turns into 10 tens and goes to the tens column — so tens goes from 2 to 12!",
+    hint:"Cross out the 5 in the hundreds column and write 4 above it. The tens column gets 10 more — so 2 becomes 12.",
+    h1:c("","blue","5","4","gave 1 hundred"),
+    t1:c("","gold","2","12","now 12!"),
+    o1:c("","","2","12",null),
+    h2:c("2"),        t2:c("8"),        o2:c("5"),
+    ha:c("?","answer-blank"), ta:c("?","answer-blank"), oa:c("7","answer-filled")
+  },
+  {
+    badge:"Step 6 of 7",
+    instruction:"Now the tens column has 12! Subtract: 12 minus 8 equals 4. Write 4 in the tens answer space. The tens column is done!",
+    hint:"12 minus 8 equals 4. Write 4 in the answer row under the tens column.",
+    h1:c("","blue","5","4",null),
+    t1:c("","","2","12",null),
+    o1:c("","","2","12",null),
+    h2:c("2"),        t2:c("8"),        o2:c("5"),
+    ha:c("?","answer-blank"), ta:c("4","answer-filled"), oa:c("7","answer-filled")
+  },
+  {
+    badge:"Step 7 of 7",
+    instruction:"Last step! Subtract the hundreds column. 4 minus 2 equals 2. Write 2 in the hundreds answer space. The answer is 247!",
+    hint:"4 minus 2 equals 2. All three columns are done! The answer is 247.",
+    h1:c("","gold","5","4",null),
+    t1:c("","","2","12",null),
+    o1:c("","","2","12",null),
+    h2:c("2","gold"), t2:c("8"),        o2:c("5"),
+    ha:c("2","answer-filled"), ta:c("4","answer-filled"), oa:c("7","answer-filled")
+  }
+];
+
+function buildCell(d) {
+  var cls = "num-cell " + d.cls;
+  var inner = "";
+  if (d.oldVal && d.newVal) {
+    inner =
+      '<div class="cell-inner">' +
+        '<span class="new-val-top">' + d.newVal + '</span>' +
+        '<span class="old-val-crossed">' + d.oldVal + '</span>' +
+        (d.arrow ? '<span class="arrow-note">' + d.arrow + '</span>' : '') +
+      '</div>';
+  } else if (d.newVal) {
+    inner =
+      '<div class="cell-inner">' +
+        '<span class="only-new-val">' + d.newVal + '</span>' +
+        (d.arrow ? '<span class="arrow-note">' + d.arrow + '</span>' : '') +
+      '</div>';
+  } else {
+    inner = '<div class="cell-inner"><span class="plain-val">' + d.val + '</span></div>';
+  }
+  return '<td class="' + cls + '">' + inner + '</td>';
+}
+
+function render() {
+  var s = steps[step];
+  var total = steps.length;
+  document.getElementById("step-badge").textContent = s.badge;
+  document.getElementById("step-instruction").textContent = s.instruction;
+  document.getElementById("hint-text").textContent = s.hint;
+  document.getElementById("progress-label").textContent = s.badge;
+  document.getElementById("step-counter").textContent = (step+1) + " / " + total;
+  document.getElementById("progress-fill").style.width = Math.round(((step+1)/total)*100) + "%";
+  var tbody = document.getElementById("math-body");
+  tbody.innerHTML =
+    "<tr><td class='row-label'>Top number</td>" + buildCell(s.h1) + buildCell(s.t1) + buildCell(s.o1) + "</tr>" +
+    "<tr><td class='row-label'>Subtract</td>" + buildCell(s.h2) + buildCell(s.t2) + buildCell(s.o2) + "</tr>" +
+    "<tr class='divider-row'><td></td><td colspan='3'><div class='divider-line'></div></td></tr>" +
+    "<tr><td class='row-label'>Answer</td>" + buildCell(s.ha) + buildCell(s.ta) + buildCell(s.oa) + "</tr>";
+  document.getElementById("btn-back").disabled = step === 0;
+  document.getElementById("btn-next").disabled = step === total - 1;
+  document.getElementById("celebrate-box").style.display = step === total - 1 ? "block" : "none";
+}
+
+function changeStep(dir) {
+  step = Math.max(0, Math.min(steps.length - 1, step + dir));
+  render();
+}
+
+function restart() { step = 0; render(); }
+render();
+</script>
+</body>
+</html>
